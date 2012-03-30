@@ -1,1 +1,1 @@
-m.reply "At your service #{m.user.nick}"
+m.reply "At your service, #{m.user.nick}"
