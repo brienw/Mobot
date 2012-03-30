@@ -1,6 +1,8 @@
-m.reply 'Pulling From Github'
+#m.reply 'Pulling From Github'
 
-puts `git pull`
+path = Dir.pwd
+
+puts `cd #{path} && git pull`
 
 m.reply 'Pull Complete... Restarting'
 
