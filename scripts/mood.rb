@@ -1,1 +1,1 @@
-m.reply "Always good, thank's for asking me #{m.user.nick}"
+m.reply "Always good, thank's #{m.user.nick}"

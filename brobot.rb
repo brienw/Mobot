@@ -12,14 +12,6 @@
 
 # This is Brobot's Daemon
 
-#require 'rubygems'
-#require 'daemons'
-
-#directory = Dir.pwd
-
-#Daemons.run("Brobot.rb #{directory}")
-
-
 require 'rubygems'
 require 'daemons'
 
