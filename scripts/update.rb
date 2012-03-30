@@ -1,6 +1,6 @@
 m.reply 'Pulling From Github'
 
-puts `cd ../ && git pull && ls`
+puts `git pull`
 
 m.reply 'Pull Complete... Restarting'
 
