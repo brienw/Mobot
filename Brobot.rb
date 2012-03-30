@@ -28,7 +28,7 @@ def brobot
 		    c.server = "10.1.1.1"
 			c.nick = nick
 			c.user = nick
-		    c.channels = ["#dev_brobot"]
+		    c.channels = ["#Team"]
 		end
 		
 		# Load up all the scripts
