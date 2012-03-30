@@ -1,1 +1,1 @@
-m.reply "Available commands: hello, github, google, mood, ping, yo."
+m.reply "#{loaded_commands}"
