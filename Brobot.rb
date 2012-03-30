@@ -31,6 +31,8 @@ def brobot
 		    c.channels = ["#Team"]
 		end
 		
+		loaded_commands = []
+		
 		# Load up all the scripts
 		Dir[File.dirname(__FILE__) + '/scripts/*.rb'].each do |file| 
 			
@@ -39,6 +41,8 @@ def brobot
 			
 			# Get the Name of the Script (so we know what to call it)
 			name = File.basename(file, ".rb") ;
+			
+			loaded_commands.push name
 			
 			# When Brobot recieve a command beginning with it's nickname
 			# and this scripts name it will run this
