@@ -1,0 +1,12 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    cinch (2.0.1)
+    daemons (1.1.8)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  cinch
+  daemons
