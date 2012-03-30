@@ -1,0 +1,1 @@
+m.reply "Available commands: hello, github, google, mood, ping."
