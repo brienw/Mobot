@@ -1,0 +1,1 @@
+m.reply "Yo! 'sup #{m.user.nick}"
