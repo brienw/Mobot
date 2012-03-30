@@ -1,0 +1,51 @@
+[2012/03/30 23:22:03.739] !! [on handler] Registering handler with pattern `#<Cinch::Pattern:0x00000000e54368 @prefix=nil, @pattern=/^(?i)Robot mood/, @suffix=nil>`, reacting on `message`
+[2012/03/30 23:22:03.739] !! [on handler] Registering handler with pattern `#<Cinch::Pattern:0x00000000e53738 @prefix=nil, @pattern=/^(?i)Robot update/, @suffix=nil>`, reacting on `message`
+[2012/03/30 23:22:03.739] !! [on handler] Registering handler with pattern `#<Cinch::Pattern:0x00000000e52b80 @prefix=nil, @pattern=/^(?i)Robot ping/, @suffix=nil>`, reacting on `message`
+[2012/03/30 23:22:03.740] !! [on handler] Registering handler with pattern `#<Cinch::Pattern:0x00000000e51fc8 @prefix=nil, @pattern=/^(?i)Robot google/, @suffix=nil>`, reacting on `message`
+[2012/03/30 23:22:03.740] !! [on handler] Registering handler with pattern `#<Cinch::Pattern:0x00000000e51410 @prefix=nil, @pattern=/^(?i)Robot help/, @suffix=nil>`, reacting on `message`
+[2012/03/30 23:22:03.740] !! [on handler] Registering handler with pattern `#<Cinch::Pattern:0x00000000e50858 @prefix=nil, @pattern=/^(?i)Robot yo/, @suffix=nil>`, reacting on `message`
+[2012/03/30 23:22:03.740] !! [on handler] Registering handler with pattern `#<Cinch::Pattern:0x00000000e57c98 @prefix=nil, @pattern=/^(?i)Robot hello/, @suffix=nil>`, reacting on `message`
+[2012/03/30 23:22:03.740] !! [on handler] Registering handler with pattern `#<Cinch::Pattern:0x00000000e570e0 @prefix=nil, @pattern=/^(?i)Robot github/, @suffix=nil>`, reacting on `message`
+[2012/03/30 23:22:03.740] !! [on handler] Registering handler with pattern `#<Cinch::Pattern:0x00000000e565f0 @prefix=nil, @pattern=//, @suffix=nil>`, reacting on `connect`
+[2012/03/30 23:22:03.740] !! [on handler] Registering handler with pattern `#<Cinch::Pattern:0x00000000e55cb8 @prefix=nil, @pattern=//, @suffix=nil>`, reacting on `disconnect`
+[2012/03/30 23:22:03.740] II Connecting to 10.1.1.1:6667
+[2012/03/30 23:22:03.747] >> :irc.studio182.net NOTICE Auth :*** Looking up your hostname...
+[2012/03/30 23:22:03.747] >> :irc.studio182.net NOTICE Auth :*** Found your hostname (ip-10-1-1-1.ec2.internal) -- cached
+[2012/03/30 23:22:03.748] << CAP LS 
+[2012/03/30 23:22:03.748] << NICK Robot 
+[2012/03/30 23:22:03.748] << USER Robot 0 * :cinch
+[2012/03/30 23:22:04.748] >> :irc.studio182.net NOTICE Auth :Welcome to \u0002Studio 182 Net\u0002!
+[2012/03/30 23:22:04.748] >> :irc.studio182.net 001 Robot :Welcome to the Studio 182 Net IRC Network Robot!Robot@ip-10-1-1-1.ec2.internal
+[2012/03/30 23:22:04.749] >> :irc.studio182.net 002 Robot :Your host is irc.studio182.net, running version InspIRCd-2.0
+[2012/03/30 23:22:04.749] II Detected IRCd: inspircd
+[2012/03/30 23:22:04.749] >> :irc.studio182.net 003 Robot :This server was created 15:40:35 Mar 28 2012
+[2012/03/30 23:22:04.749] >> :irc.studio182.net 004 Robot irc.studio182.net InspIRCd-2.0 iosw biklmnopstv bklov 
+[2012/03/30 23:22:04.749] >> :irc.studio182.net 005 Robot 182 AWAYLEN=201 CASEMAPPING=rfc1459 CHANMODES=b,k,l,imnpst CHANTYPES=# CHARSET=ascii ELIST=MU FNC KICKLEN=256 MAP MAXBANS=60 MAXCHANNELS=20 MAXPARA=32 :are supported by this server
+[2012/03/30 23:22:04.750] >> :irc.studio182.net 005 Robot MAXTARGETS=20 MODES=20 NETWORK=Studio NICKLEN=32 Net PREFIX=(ov)@+ STATUSMSG=@+ TOPICLEN=308 VBANLIST WALLCHOPS WALLVOICES :are supported by this server
+[2012/03/30 23:22:04.750] II Detected network: studio
+[2012/03/30 23:22:04.750] >> :irc.studio182.net 042 Robot 437AAAADM :your unique ID
+[2012/03/30 23:22:04.750] >> :irc.studio182.net 375 Robot :irc.studio182.net message of the day
+[2012/03/30 23:22:04.750] >> :irc.studio182.net 372 Robot :- Welcome To the Studio 182 Chat Server. Please Select the #Team Channel.
+[2012/03/30 23:22:04.751] >> :irc.studio182.net 376 Robot :End of message of the day.
+[2012/03/30 23:22:04.751] >> :irc.studio182.net 251 Robot :There are 3 users and 0 invisible on 1 servers
+[2012/03/30 23:22:04.751] >> :irc.studio182.net 254 Robot 2 :channels formed
+[2012/03/30 23:22:04.751] >> :irc.studio182.net 255 Robot :I have 3 clients and 0 servers
+[2012/03/30 23:22:04.751] >> :irc.studio182.net 265 Robot :Current Local Users: 3  Max: 5
+[2012/03/30 23:22:04.751] >> :irc.studio182.net 266 Robot :Current Global Users: 3  Max: 5
+[2012/03/30 23:22:04.752] !! [New thread] For #<Cinch::Handler @event=:connect pattern=#<Cinch::Pattern:0x00000000e565f0 @prefix=nil, @pattern=//, @suffix=nil>>: #<Thread:0x000000008d0db0> -- 1 in total.
+[2012/03/30 23:22:04.752] !! [timer] Starting timer <Cinch::Timer 0/1 shots, 0s interval, threaded, not started, block: #<Proc:0x00000000e56730@/usr/local/rvm/gems/ruby-1.9.3-p0/gems/cinch-2.0.1/lib/cinch/bot.rb:263>>
+[2012/03/30 23:22:04.752] !! [Thread done] For #<Cinch::Handler @event=:connect pattern=#<Cinch::Pattern:0x00000000e565f0 @prefix=nil, @pattern=//, @suffix=nil>>: #<Thread:0x000000008d0db0> -- 0 remaining.
+[2012/03/30 23:22:04.752] << JOIN #Team 
+[2012/03/30 23:22:04.753] >> :Robot!Robot@ip-10-1-1-1.ec2.internal JOIN :#Team
+[2012/03/30 23:22:04.753] >> :irc.studio182.net 353 Robot = #Team :Robot Hunter Robot_ 
+[2012/03/30 23:22:04.753] >> :irc.studio182.net 366 Robot #Team :End of /NAMES list.
+[2012/03/30 23:22:04.754] << WHO #Team 
+[2012/03/30 23:22:04.754] << MODE #Team +b 
+[2012/03/30 23:22:04.754] << MODE #Team 
+[2012/03/30 23:22:04.754] >> :irc.studio182.net 352 Robot #Team Robot ip-10-1-1-1.ec2.internal irc.studio182.net Robot H :0 cinch
+[2012/03/30 23:22:04.754] >> :irc.studio182.net 352 Robot #Team Hunter ip-10-1-1-9.ec2.internal irc.studio182.net Hunter H :0 Hunter
+[2012/03/30 23:22:04.754] >> :irc.studio182.net 352 Robot #Team Robot ip-10-1-1-9.ec2.internal irc.studio182.net Robot_ H :0 cinch
+[2012/03/30 23:22:04.755] >> :irc.studio182.net 315 Robot #Team :End of /WHO list.
+[2012/03/30 23:22:04.755] >> :irc.studio182.net 368 Robot #Team :End of channel ban list
+[2012/03/30 23:22:04.755] >> :irc.studio182.net 324 Robot #Team +nt 
+[2012/03/30 23:22:04.755] >> :irc.studio182.net 329 Robot #Team 1333139256 

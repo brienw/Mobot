@@ -12,7 +12,23 @@
 
 # This is Brobot's Daemon
 
+#require 'rubygems'
+#require 'daemons'
+
+#directory = Dir.pwd
+
+#Daemons.run("Brobot.rb #{directory}")
+
+
 require 'rubygems'
 require 'daemons'
 
-Daemons.run('Brobot.rb')
+pwd  = File.dirname(File.expand_path(__FILE__))
+file = pwd + '/runner.rb'
+
+Daemons.run_proc(
+   'Brobot',
+   :log_output => true
+ ) do
+   exec "ruby #{file} #{pwd}"
+end

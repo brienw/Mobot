@@ -1,7 +1,8 @@
 m.reply 'Pulling From Github'
-path = Dir.pwd
-
-bb = IO.popen("cd #{path} && git pull")
+#puts path = Dir.pwd
+directory = ARGV[0]
+puts directory
+bb = IO.popen("cd #{directory} && git pull")
 b = bb.readlines
 puts b.join
 
