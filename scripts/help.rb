@@ -4,4 +4,4 @@
 #	Example: brobot help
 #
 
-m.reply "#{loaded_commands}"
+m.reply "Loaded Commands: #{loaded_commands}"
