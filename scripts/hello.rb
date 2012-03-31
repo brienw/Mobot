@@ -3,4 +3,4 @@
 #	Example: brobot hello
 #
 
-m.reply "At your service, #{m.user.nick}"
+m.reply "Hello #{m.user.nick}! At your service."

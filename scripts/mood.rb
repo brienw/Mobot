@@ -3,4 +3,4 @@
 #	Example: brobot mood
 #
 
-m.reply "Always good, thank's #{m.user.nick}"
+m.reply "Always good, thank you #{m.user.nick}"
