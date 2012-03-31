@@ -13,22 +13,28 @@
 # This is Brobot's Actual Code
 
 require 'cinch'
+require 'yaml'
 
 # Brobot: This is the Actual Code that makes Brobot run.
 def brobot
 	# Get Nickname for Robot
 	nick = "Robot"
 	
+		
 	# Create the Bots Cinch Class
 	# Name it with a Thread variable (So we can access it later)
 	Thread.main[:bot] = Cinch::Bot.new do
 		
 		# Configure the Bot  
 		configure do |c|
-		    c.server = "10.1.1.1"
-			c.nick = nick
-			c.user = nick
-		    c.channels = ["#Team"]
+			config = YAML.load_file("#{ARGV[0]}/config.yaml")[0]["config"]
+			c.server = config["server"]
+			c.port = config["port"]
+			c.ping = config["ping"]
+			c.nick = config["nick"]
+			c.channels = config["channels"]
+			c.user = config["nick"]
+			puts c
 		end
 		
 		loaded_commands = []

@@ -15,6 +15,10 @@
 require 'rubygems'
 require 'daemons'
 
+if ARGV[0] == nil then
+	ARGV[0] = "run"
+end
+
 pwd  = File.dirname(File.expand_path(__FILE__))
 file = pwd + '/runner.rb'
 

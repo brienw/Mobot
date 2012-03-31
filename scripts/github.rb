@@ -2,6 +2,7 @@
 #	Makes Github easy
 #	Example: brobot github Studio182 Brobot
 #
+
 require 'uri'
 
 query = URI.escape(query,Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
