@@ -3,4 +3,4 @@
 #	Example: brobot mood
 #
 
-m.reply "Yo! 'sup #{m.user.nick}"
+m.reply "Yo! 'Sup #{m.user.nick}"
