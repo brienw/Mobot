@@ -2,7 +2,7 @@ require 'evma_httpserver'
 
 module BrobotPlugin
 
-  class GithubWebhookServer < EM::Connection
+  class Githubwebhookserver < EM::Connection
 
   	include EM::HttpServer
 
@@ -42,7 +42,7 @@ module BrobotPlugin
   
   end
 
-	module GithubWebhooks
+	module Githubwebhooks
 		def self.emRun
 			EM.start_server '0.0.0.0', 8585, BrobotPlugin.const_get("WebhooksServer")
 		end
