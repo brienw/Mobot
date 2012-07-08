@@ -4,7 +4,7 @@
 #
 
 module BrobotScript
-	class What
+	class commit
 
 		require 'net/http'
 	    require 'net/https'

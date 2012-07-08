@@ -1,18 +1,21 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    daemons (1.1.8)
     eventmachine (0.12.10)
     eventmachine_httpserver (0.2.1)
-    isaac (0.2.6)
     json (1.7.3)
+    ponder (0.2.0)
+      eventmachine (>= 0.12.10)
     simple-rss (1.2.3)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  daemons
   eventmachine (= 0.12.10)
   eventmachine_httpserver
-  isaac (= 0.2.6)
   json (= 1.7.3)
+  ponder
   simple-rss

@@ -7,6 +7,12 @@ module BrobotScript
 	class Github
 		require 'uri'
 		def command(params, nick)
+			
+			connectingWords = %w(repo for is repository)
+
+			connectingWords.each do |word|
+				params.delete word
+			end
 
 			if params.length == 1
 				"https://github.com/#{params.join("")}"

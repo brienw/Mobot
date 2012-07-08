@@ -13,13 +13,12 @@
 # This is Brobot's Main Bot File
 
 # Setting up dependencies...
-require 'isaac/bot'
+require 'ponder'
 require 'uri'
 require 'json'  
 require "eventmachine"
 require "yaml"
-
- require 'evma_httpserver'
+require 'evma_httpserver'
 
 class Module
 	def submodules
@@ -58,92 +57,95 @@ end
 # Brobot's class!
 class Brobot
 
+	def valid_json?(json_)
+		begin  
+			JSON.parse(json_)  
+			true  
+		rescue Exception => e  
+			false  
+		end  
+	end  
+
 	def bot
 
-		@bot = Isaac::Bot.new do
+		@bot = Ponder::Thaum.new do |thaum|
 
 			Thread.current[:bot] = self
 
 			config = YAML.load_file("config.yml")
 
-			nick_name = config['nickname']
-			server = config['server']
-			port = config['port']
-			channels = config['channels']
+			thaum.username = thaum.real_name = thaum.nick = config['nickname']
+			thaum.verbose = false
+			@nick = config["nickname"]
+			thaum.server = config['server']
+			thaum.port = config['port']
+			@channels = config['channels']
+		end
 
-			configure do |c|
-			  c.nick    = nick_name
-			  c.server  = server
-			  c.port    = port
+		@bot.on :connect do
+			@channels.each { |chan|
+			  	@bot.join chan
+			}
+
+			BrobotPlugin.submodules.each do |pluginClass|
+				
+				pluginClass = BrobotPlugin.const_get pluginClass
+
+				if pluginClass.respond_to?(:new)
+		
+					pluginClass = pluginClass.new
+
+				end
+
+				if pluginClass.respond_to?(:connect)
+
+					pluginClass.connect
+
+				end
+				
 			end
 
-			on :connect do
-				channels.each { |chan|
-				  	join chan
-				}
+		end
+		@bot.on :channel, /^(.*)(?i)#{@nick}(.*)/ do |event_data|
+			scriptMatch = event_data[:message]
 
-				BrobotPlugin.submodules.each do |pluginClass|
-					
-					pluginClass = BrobotPlugin.const_get pluginClass
+			scriptMatch.gsub!(/(\!|\?|\.|\,)/, "")
 
-					if pluginClass.respond_to?(:new)
-			
-						pluginClass = pluginClass.new
+			scriptMatch.gsub!(/^( |)(?i)#{@nick}( |)/, "")
 
-					end
+			if scriptMatch == "" or scriptMatch == " "
+				scriptMatch = "Hello"
+			end
 
-					if pluginClass.respond_to?(:connect)
+			responseArray = scriptMatch.split(" ")
+			lowerResponseArray = scriptMatch.downcase.split(" ")
 
-						pluginClass.connect
+			scriptMatch = responseArray
+			matches = false
 
-					end
-					
+			BrobotScript.submodules.each do |script|
+
+				index = lowerResponseArray.index script.downcase
+
+				unless index == nil
+					matches = true
+					scriptMatch = responseArray[index..responseArray.length - 1]
+					break
 				end
 
 			end
-			on :channel, /^(?i)#{nick_name} (.*)/ do
-				scriptMatch = match[0].split(" ")[0]
 
-				if BrobotScript.submodules.include? scriptMatch.capitalize
+			if BrobotScript.submodules.include? scriptMatch[0].capitalize
 
-					resp = BrobotScript.const_get scriptMatch.capitalize
+				resp = BrobotScript.const_get scriptMatch[0].capitalize
 
-					arguments = match[0].split(" ")
+				scriptMatch.delete_at(0)
 
-					arguments.delete_at(0)
+				class_response = resp.new.command scriptMatch, event_data[:nick]
 
-					class_response = resp.new.command arguments, nick
-
-					if class_response.kind_of?(Array)
-						class_response.each { |element|
-											
-							BrobotPlugin.submodules.each do |pluginClass|
-								
-								pluginClass = BrobotPlugin.const_get pluginClass
-
-								if pluginClass.respond_to?(:new)
-
-									pluginClass = pluginClass.new
-
-								end
-
-								if pluginClass.respond_to?(:sendingMessage)
-
-									class_response = pluginClass.sendingMessage class_response
-
-								end
-							
-							end
-
-							msg channel, element
-						}
-						
-					elsif valid_json?(class_response)
-						resp = JSON.parse(class_response)
-						if resp['update']
-							msg channel, "Update is not implemented yet"
-						end
-					else
+				if class_response.kind_of?(Array)
+					class_response.each { |element|
+										
 						BrobotPlugin.submodules.each do |pluginClass|
 							
 							pluginClass = BrobotPlugin.const_get pluginClass
@@ -162,31 +164,44 @@ class Brobot
 						
 						end
 
-						msg channel, class_response
+						@bot.message event_data[:channel], element
+					}
+					
+				elsif valid_json?(class_response)
+					resp = JSON.parse(class_response)
+					if resp['update']
+						@bot.message event_data[:channel], "Update is not implemented yet"
+					end
+				else
+					BrobotPlugin.submodules.each do |pluginClass|
+						
+						pluginClass = BrobotPlugin.const_get pluginClass
+
+						if pluginClass.respond_to?(:new)
+
+							pluginClass = pluginClass.new
+
+						end
+
+						if pluginClass.respond_to?(:sendingMessage)
+
+							class_response = pluginClass.sendingMessage class_response
+
+						end
 					
 					end
 
-				end
+					@bot.message event_data[:channel], class_response
 				
-			end
+				end
 
-			helpers do
-
-				def valid_json?(json_)
-					begin  
-						JSON.parse(json_)  
-						true  
-					rescue Exception => e  
-						false  
-					end  
-				end  
-
-			end
+			else
+				notFound = ["I don't know that command.", "lolwhat?", "Chu crazy..."]
+				notFound = notFound.sample
+				@bot.message event_data[:channel], notFound
+			end			
 		end
-		@bot
-	end
 
-	def getBot
 		@bot
 	end
 
@@ -195,12 +210,8 @@ end
 # This tiny bit of code catches Ctrl+C and prints out a message instead of an ugly exception
 trap("INT") { puts "[Brobot] Bye!"; exit }
 
-# Starts the bot
-EventMachine.run {
 
-	Thread.current[:brobotThread] = Thread.new do
-		Brobot.new.bot.start
-	end
+EM.run {
 
 	BrobotPlugin.submodules.each do |pluginClass|
 		
@@ -213,12 +224,12 @@ EventMachine.run {
 		end
 
 		if pluginClass.respond_to?(:emRun)
-
 			pluginClass.emRun
-
 		end
 
 	end
+
+	Brobot.new.bot.connect
 
 }	
 
