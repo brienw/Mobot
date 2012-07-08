@@ -44,7 +44,7 @@ module BrobotPlugin
 
 	module Githubwebhooks
 		def self.emRun
-			EM.start_server '0.0.0.0', 8585, BrobotPlugin.const_get("WebhooksServer")
+			EM.start_server '0.0.0.0', 8585, BrobotPlugin.const_get("Githubwebhooks")
 		end
 	end
 
