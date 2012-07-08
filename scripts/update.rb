@@ -3,10 +3,12 @@
 #	Example: brobot update
 #
 
-class Update
+module BrobotScript
+	class Update
 
-	def command(params, nick)
-		{'update' => true}.to_json
+		def command(params, nick)
+			{'update' => true}.to_json
 
+		end
 	end
 end

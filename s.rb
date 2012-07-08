@@ -18,11 +18,29 @@ require 'uri'
 require 'json'  
 require "eventmachine"
 require "yaml"
+require 'active_support/core_ext/string'
 
+module BrobotScript; end
 
 # Brobot's class!
 class Brobot
 	def bot
+
+		@commands = []
+
+		File.tap do |f|
+    		Dir[f.expand_path(f.join(f.dirname(__FILE__),'scripts', '*.rb'))].each do |file|
+    			BrobotScript.autoload File.basename(file, '.rb').classify, file
+    			
+    			@commands.push File.basename(file, '.rb')
+
+    		end
+  		end
+
+  		def commands
+  			@commands
+  		end
+
 		bot = Isaac::Bot.new do
 			config = YAML.load_file("config.yml")
 
@@ -42,14 +60,23 @@ class Brobot
 				  	join chan
 				}
 			end
-			on :channel, /^#{nick_name} (.*)/ do
-				script = match[0].split(" ")[0]
-				if File.exists?("./scripts/#{script}.rb")
+			on :channel, /^(?i)#{nick_name} (.*)/ do
+				scriptMatch = match[0].split(" ")[0]
+				if File.exists?("./scripts/#{scriptMatch}.rb")
 
-					script = "./scripts/#{script}.rb"
-					require script 
+					script = "./scripts/#{scriptMatch}.rb"
 
-					class_response = Object.const_get(script.scan(/scripts\/(.*).rb/)[0].join("").capitalize).new.command(match[0].split(" ")[1..-1], nick)
+					script = script.scan(/scripts\/(.*).rb/)
+					script = script[0]
+					
+					script = script.join("")
+					script.capitalize!
+
+					resp = BrobotScript.const_get script
+
+					match = scriptMatch[1..-1]
+
+					class_response = resp.new.command match, nick
 
 					if class_response.kind_of?(Array)
 						class_response.each { |element|
