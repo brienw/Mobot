@@ -1,7 +1,17 @@
 #
-#	Help (for brobot)
-#	Lists all available commands
+#	Lists all the commands
 #	Example: brobot help
 #
 
-m.reply "Loaded commands: #{loaded_commands}"
+class Help
+
+	def command(params, nick)
+		files = Dir.glob("scripts/*.rb")
+		final_files = Array.new
+		files.each { |f|
+			f = f.gsub("scripts/", "").gsub(".rb", "")
+			final_files.push(f)
+		}	
+		final_files.join(", ")
+	end
+end

@@ -1,16 +1,16 @@
 #
-#	Makes Github easy
-#	Example: brobot github Studio182 Brobot
+#	Makes Github repo interactin quick
+#	Example: brobot github studio182 or brobot github studio182 brobot
 #
 
-require 'uri'
+class Github
+	require 'uri'
+	def command(params, nick)
 
-query = URI.escape(query,Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
-query = query.gsub(/%20/,"/")
-
-m.reply "https://github.com/#{query}"
-
-if query.split('/').length == 2
-	m.reply "git clone ssh://git@github.com:#{query}.git"
-	m.reply "git clone https://github.com/#{query}.git"
+		if params.length == 1
+			URI.escape("https://github.com/#{params.join("")}", Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+		else
+			[URI.escape("https://github.com/#{params.join("/")}", Regexp.new("[^#{URI::PATTERN::UNRESERVED}]")), "git@github.com:#{params[0].capitalize}/#{params[1].capitalize}.git"]
+		end	
+	end
 end

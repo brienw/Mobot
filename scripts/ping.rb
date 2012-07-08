@@ -1,7 +1,11 @@
 #
-#	Ping
-#	Makes sure everything is still running
+#	Checks if the bot works
 #	Example: brobot ping
 #
 
-m.reply "pong"
+class Ping
+
+	def command(params, nick)
+		"Pong"
+	end
+end

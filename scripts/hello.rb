@@ -1,6 +1,11 @@
 #
-#	Hello (for brobot)
+#	Greets you back
 #	Example: brobot hello
 #
 
-m.reply "Hello #{m.user.nick}! At your service :)"
+class Hello
+
+	def command(params, nick)
+		"Hello #{nick}! \u{1f60a}"
+	end
+end

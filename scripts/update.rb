@@ -1,14 +1,12 @@
 #
-#	Update (for brobot)
-#	Automaticall Updates 
-#	Example: brobot google brobot
+#	Updates the bot
+#	Example: brobot update
 #
 
+class Update
 
-m.reply 'Pulling From Github'
-directory = ARGV[0]
-bb = IO.popen("cd #{directory} && git pull")
-b = bb.readlines
-m.reply 'Pull Complete... Restarting'
+	def command(params, nick)
+		{'update' => true}.to_json
 
-Thread.start{restartBrobot}
+	end
+end
