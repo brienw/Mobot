@@ -8,9 +8,9 @@ class Github
 	def command(params, nick)
 
 		if params.length == 1
-			URI.escape("https://github.com/#{params.join("")}", Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+			"https://github.com/#{params.join("")}"
 		else
-			[URI.escape("https://github.com/#{params.join("/")}", Regexp.new("[^#{URI::PATTERN::UNRESERVED}]")), "git@github.com:#{params[0].capitalize}/#{params[1].capitalize}.git"]
+			["https://github.com/#{params.join("/")}", "git@github.com:#{params[0].capitalize}/#{params[1].capitalize}.git"]
 		end	
 	end
 end
