@@ -18,6 +18,9 @@ require 'uri'
 require 'json'  
 require "eventmachine"
 require "yaml"
+
+ require 'evma_httpserver'
+
 class Module
 	def submodules
 		modules = []
@@ -57,7 +60,9 @@ class Brobot
 
 	def bot
 
-		bot = Isaac::Bot.new do
+		@bot = Isaac::Bot.new do
+
+			Thread.current[:bot] = self
 
 			config = YAML.load_file("config.yml")
 
@@ -81,13 +86,18 @@ class Brobot
 					
 					pluginClass = BrobotPlugin.const_get pluginClass
 
-					pluginClass = pluginClass.new
+					if pluginClass.respond_to?(:new)
+			
+						pluginClass = pluginClass.new
+
+					end
 
 					if pluginClass.respond_to?(:connect)
 
 						pluginClass.connect
 
 					end
+					
 				end
 
 			end
@@ -111,13 +121,18 @@ class Brobot
 								
 								pluginClass = BrobotPlugin.const_get pluginClass
 
-								pluginClass = pluginClass.new
+								if pluginClass.respond_to?(:new)
+
+									pluginClass = pluginClass.new
+
+								end
 
 								if pluginClass.respond_to?(:sendingMessage)
 
 									class_response = pluginClass.sendingMessage class_response
 
 								end
+							
 							end
 
 							msg channel, element
@@ -133,13 +148,18 @@ class Brobot
 							
 							pluginClass = BrobotPlugin.const_get pluginClass
 
-							pluginClass = pluginClass.new
+							if pluginClass.respond_to?(:new)
+
+								pluginClass = pluginClass.new
+
+							end
 
 							if pluginClass.respond_to?(:sendingMessage)
 
 								class_response = pluginClass.sendingMessage class_response
 
 							end
+						
 						end
 
 						msg channel, class_response
@@ -163,8 +183,13 @@ class Brobot
 
 			end
 		end
-		bot
+		@bot
 	end
+
+	def getBot
+		@bot
+	end
+
 end
 
 # This tiny bit of code catches Ctrl+C and prints out a message instead of an ugly exception
@@ -172,6 +197,28 @@ trap("INT") { puts "[Brobot] Bye!"; exit }
 
 # Starts the bot
 EventMachine.run {
-	Brobot.new.bot.start
+
+	Thread.current[:brobotThread] = Thread.new do
+		Brobot.new.bot.start
+	end
+
+	BrobotPlugin.submodules.each do |pluginClass|
+		
+		pluginClass = BrobotPlugin.const_get pluginClass
+
+		if pluginClass.respond_to?(:new)
+
+			pluginClass = pluginClass.new
+
+		end
+
+		if pluginClass.respond_to?(:emRun)
+
+			pluginClass.emRun
+
+		end
+
+	end
+
 }	
 

@@ -2,6 +2,7 @@ GEM
   remote: http://rubygems.org/
   specs:
     eventmachine (0.12.10)
+    eventmachine_httpserver (0.2.1)
     isaac (0.2.6)
     json (1.7.3)
     simple-rss (1.2.3)
@@ -11,6 +12,7 @@ PLATFORMS
 
 DEPENDENCIES
   eventmachine (= 0.12.10)
+  eventmachine_httpserver
   isaac (= 0.2.6)
   json (= 1.7.3)
   simple-rss
