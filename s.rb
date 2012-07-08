@@ -18,30 +18,47 @@ require 'uri'
 require 'json'  
 require "eventmachine"
 require "yaml"
-require 'active_support/core_ext/string'
+class Module
+	def submodules
+		modules = []
+		constants.collect {|const_name| modules.push const_name.to_s.split("::").last}
+
+		modules
+
+		#constants.collect {|const_name| const_get(const_name)}.select {|const| const.class == Module}
+	end
+end
 
 module BrobotScript; end
 
+module BrobotPlugin; end
+
+File.tap do |f|
+	Dir[f.expand_path(f.join(f.dirname(__FILE__),'scripts', '*.rb'))].each do |file|
+	
+		BrobotScript.autoload File.basename(file, '.rb').capitalize, file
+
+	end
+end
+
+
+File.tap do |f|
+	Dir[f.expand_path(f.join(f.dirname(__FILE__),'plugins', '*.rb'))].each do |file|
+
+		BrobotPlugin.autoload File.basename(file, '.rb').capitalize, file
+
+	end
+end
+
+
+
 # Brobot's class!
 class Brobot
+
 	def bot
 
-		@commands = []
-
-		File.tap do |f|
-    		Dir[f.expand_path(f.join(f.dirname(__FILE__),'scripts', '*.rb'))].each do |file|
-    			BrobotScript.autoload File.basename(file, '.rb').classify, file
-    			
-    			@commands.push File.basename(file, '.rb')
-
-    		end
-  		end
-
-  		def commands
-  			@commands
-  		end
-
 		bot = Isaac::Bot.new do
+
 			config = YAML.load_file("config.yml")
 
 			nick_name = config['nickname']
@@ -59,27 +76,50 @@ class Brobot
 				channels.each { |chan|
 				  	join chan
 				}
+
+				BrobotPlugin.submodules.each do |pluginClass|
+					
+					pluginClass = BrobotPlugin.const_get pluginClass
+
+					pluginClass = pluginClass.new
+
+					if pluginClass.respond_to?(:connect)
+
+						pluginClass.connect
+
+					end
+				end
+
 			end
 			on :channel, /^(?i)#{nick_name} (.*)/ do
 				scriptMatch = match[0].split(" ")[0]
-				if File.exists?("./scripts/#{scriptMatch}.rb")
 
-					script = "./scripts/#{scriptMatch}.rb"
+				if BrobotScript.submodules.include? scriptMatch.capitalize
 
-					script = script.scan(/scripts\/(.*).rb/)
-					script = script[0]
-					
-					script = script.join("")
-					script.capitalize!
+					resp = BrobotScript.const_get scriptMatch.capitalize
 
-					resp = BrobotScript.const_get script
+					arguments = match[0].split(" ")
 
-					match = scriptMatch[1..-1]
+					arguments.delete_at(0)
 
-					class_response = resp.new.command match, nick
+					class_response = resp.new.command arguments, nick
 
 					if class_response.kind_of?(Array)
 						class_response.each { |element|
+											
+							BrobotPlugin.submodules.each do |pluginClass|
+								
+								pluginClass = BrobotPlugin.const_get pluginClass
+
+								pluginClass = pluginClass.new
+
+								if pluginClass.respond_to?(:sendingMessage)
+
+									class_response = pluginClass.sendingMessage class_response
+
+								end
+							end
+
 							msg channel, element
 						}
 						
@@ -89,11 +129,23 @@ class Brobot
 							msg channel, "Update is not implemented yet"
 						end
 					else
+						BrobotPlugin.submodules.each do |pluginClass|
+							
+							pluginClass = BrobotPlugin.const_get pluginClass
+
+							pluginClass = pluginClass.new
+
+							if pluginClass.respond_to?(:sendingMessage)
+
+								class_response = pluginClass.sendingMessage class_response
+
+							end
+						end
+
 						msg channel, class_response
+					
 					end
-					#eval script
-				else
-					msg channel, "dafuq I just evaluated?!"
+
 				end
 				
 			end
@@ -119,5 +171,7 @@ end
 trap("INT") { puts "[Brobot] Bye!"; exit }
 
 # Starts the bot
-EventMachine.run {Brobot.new.bot.start}	
+EventMachine.run {
+	Brobot.new.bot.start
+}	
 
