@@ -1,4 +1,4 @@
-nickname: "dafuqbot"
-server: "10.1.1.1"
+nickname: "Brobot"
+server: "172.16.0.1"
 port: 6667
 channels: ['#Team', '#brobot_dev']
