@@ -18,6 +18,8 @@ module BrobotScript
 
 			res = Net::HTTP.new(url.host, 443)
 
+			res.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
 			res.use_ssl = true
 
 			res = res.get(url.path)
