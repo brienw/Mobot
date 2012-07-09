@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 #
 #	 ######                                    
 #	 #     # #####   ####  #####   ####  ##### 
@@ -7,17 +9,23 @@
 #	 #     # #   #  #    # #    # #    #   #   
 #	 ######  #    #  ####  #####   ####    #   
 #
-#	 By Studio 182 (http://studio182.net/)
+#	 By Mocha (http://wearemocha.com/)
 #
 
 # This is Brobot's Daemon
 
-#!/usr/bin/env ruby
 require 'rubygems'
 require 'daemons'
 
-pwd = Dir.pwd
-Daemons.run_proc('Brobot', {:dir_mode => :normal, :dir => "#{pwd}/"}) do
-  Dir.chdir(pwd)
-  exec 'ruby s.rb'
+if ARGV.length == 0
+
+	require "#{pwd}/server.rb"
+
+else
+
+	pwd = Dir.pwd
+	Daemons.run_proc('Brobot', {:dir_mode => :normal, :dir => "#{pwd}/"}) do
+		require "#{pwd}/server.rb"
+	end
+
 end

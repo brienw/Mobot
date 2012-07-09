@@ -1,3 +1,4 @@
+.DS_Store
 Brobot.pid
 Gemfile.lock
 config.yml

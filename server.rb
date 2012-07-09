@@ -7,7 +7,7 @@
 #	 #     # #   #  #    # #    # #    #   #
 #	 ######  #    #  ####  #####   ####    #
 #
-#	 By Studio 182 (http://studio182.net/)
+#	 By Mocha (http://wearemocha.com/)
 #
 
 # This is Brobot's Main Bot File
@@ -79,7 +79,7 @@ class Brobot
       @nick = config["nickname"]
       thaum.server = config['server']
       thaum.port = config['port']
-      @channels = config['channels']
+      Thread.current[:channels] = @channels = config['channels']
     end
 
     @bot.on :connect do
@@ -211,7 +211,10 @@ end
 trap("INT") { puts "[Brobot] Bye!"; exit }
 
 
-EM.run {
+EM.run do
+
+  Thread.current[:bot] = Brobot.new.bot
+  Thread.current[:bot].connect
 
   BrobotPlugin.submodules.each do |pluginClass|
 
@@ -228,7 +231,4 @@ EM.run {
     end
 
   end
-
-  Brobot.new.bot.connect
-
-}
+end

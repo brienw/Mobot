@@ -1,10 +1,10 @@
 #
 #	What to commit?
-#	Example: brobot github Studio182 Brobot
+#	Example: What do you think my commit message should be brobot?
 #
 
 module BrobotScript
-	class commit
+	class Commit
 
 		require 'net/http'
 	    require 'net/https'
