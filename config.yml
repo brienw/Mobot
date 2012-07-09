@@ -1,4 +1,4 @@
-nickname: "Mobot"
+nickname: "Brobot"
 server: "172.16.0.1"
 port: 6667
 delay: 0.2 # On fast servers brobot can repsond extremely fast. 
