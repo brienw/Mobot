@@ -46,7 +46,7 @@ module BrobotPlugin
 
             Thread.current["channels"].each do |channel|
 
-              Thread.current["bot"].msg channel, "#{commit["author"]["name"]} just made a new commit on #{data["respository"]["url"]} with the message: #{commit["message"]}"
+              Thread.current["bot"].msg channel, "#{commit["author"]["name"]} just made a new commit on #{data["repsository"]["url"]} with the message: #{commit["message"]}"
 
             end
 
