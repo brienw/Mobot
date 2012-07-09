@@ -36,7 +36,11 @@ module BrobotPlugin
 
           string = url_unescape(string)
 
+          puts string
+
           data = JSON.parse string
+
+          puts data
 
           for commit in data[:commits]
 
