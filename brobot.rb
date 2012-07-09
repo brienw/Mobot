@@ -1,13 +1,13 @@
 #
-#	 ######
-#	 #     # #####   ####  #####   ####  #####
-#	 #     # #    # #    # #    # #    #   #
-#	 ######  #    # #    # #####  #    #   #
-#	 #     # #####  #    # #    # #    #   #
-#	 #     # #   #  #    # #    # #    #   #
-#	 ######  #    #  ####  #####   ####    #
+#  ######
+#  #     # #####   ####  #####   ####  #####
+#  #     # #    # #    # #    # #    #   #
+#  ######  #    # #    # #####  #    #   #
+#  #     # #####  #    # #    # #    #   #
+#  #     # #   #  #    # #    # #    #   #
+#  ######  #    #  ####  #####   ####    #
 #
-#	 By Mocha (http://wearemocha.com/)
+#  By Mocha (http://wearemocha.com/)
 #
 
 # This is Brobot's Main Bot File
@@ -110,41 +110,41 @@ class Brobot
     @bot.on :join do |event_data|
       BrobotPlugin.submodules.each do |pluginClass|
 
-            pluginClass = BrobotPlugin.const_get pluginClass
+        pluginClass = BrobotPlugin.const_get pluginClass
 
-            if pluginClass.respond_to?(:new)
+        if pluginClass.respond_to?(:new)
 
-              pluginClass = pluginClass.new
+          pluginClass = pluginClass.new
 
-            end
+        end
 
-            if pluginClass.respond_to?(:userJoined)
+        if pluginClass.respond_to?(:userJoined)
 
-              pluginClass.userJoined event_data
+          pluginClass.userJoined event_data
 
-            end
+        end
 
-          end
+      end
     end
 
     @bot.on [:part, :quit] do |event_data|
       BrobotPlugin.submodules.each do |pluginClass|
 
-            pluginClass = BrobotPlugin.const_get pluginClass
+        pluginClass = BrobotPlugin.const_get pluginClass
 
-            if pluginClass.respond_to?(:new)
+        if pluginClass.respond_to?(:new)
 
-              pluginClass = pluginClass.new
+          pluginClass = pluginClass.new
 
-            end
+        end
 
-            if pluginClass.respond_to?(:userLeft)
+        if pluginClass.respond_to?(:userLeft)
 
-              pluginClass.userLeft event_data
+          pluginClass.userLeft event_data
 
-            end
+        end
 
-          end
+      end
     end
 
 
@@ -167,8 +167,16 @@ class Brobot
 
       BrobotScript.submodules.each do |script|
 
-        index = lowerResponseArray.index script.downcase
+        scriptConst = BrobotScript.const_get script
 
+        if scriptConst.respond_to?(:customMatch)
+          unless match = scriptConst.customMatch lowerResponseArray == false
+            index = lowerResponseArray.index match.downcase
+          end
+        else
+          index = lowerResponseArray.index script.downcase
+        end
+        
         unless index == nil
           matches = true
           scriptMatch = responseArray[index..responseArray.length - 1]
@@ -215,7 +223,7 @@ class Brobot
           resp = JSON.parse(class_response)
           if resp['update']
             dir = File.expand_path(File.dirname(__FILE__))
- 
+
             puts `cd #{dir} && git pull origin master`
 
             EM.stop_event_loop
