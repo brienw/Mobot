@@ -20,24 +20,30 @@ module BrobotPlugin
         no_environment_strings
       end
 
+      def url_unescape(string)
+        string.tr('+', ' ').gsub(/((?:%[0-9a-fA-F]{2})+)/n) do
+          [$1.delete('%')].pack('H*')
+        end
+      end
+
       def process_http_request
 
         #	if @http_query_string == ""
         unless @http_post_content == nil
-          
+
           string = @http_post_content
-          
+
           string = string[8..string.length]
 
-          string = CGI::unescape(string)
+          string = url_unescape(string)
 
           data = JSON.parse @http_post_content[:payload]
 
           for commit in data[:commits]
 
-          	Thread.current[:chamnnels].each do |channel|
+            Thread.current[:chamnnels].each do |channel|
 
-            	Thread.current[:bot].msg channel, "#{commit[:author][:name]} just made a new commit on #{data[:respository][:url]} with the message: #{commit[:message]}"
+              Thread.current[:bot].msg channel, "#{commit[:author][:name]} just made a new commit on #{data[:respository][:url]} with the message: #{commit[:message]}"
 
             end
 
