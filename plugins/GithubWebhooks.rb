@@ -38,6 +38,8 @@ module BrobotPlugin
 
           data = JSON.parse string
 
+          puts string
+
           data["commits"].each do |commit|
 
           	puts Thread.current["channels"]
