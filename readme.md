@@ -1,4 +1,10 @@
-# Brobot
+	
+	 __  __     _         _   
+	|  \/  |___| |__  ___| |_ 
+	| |\/| / _ \ '_ \/ _ \  _|
+	|_|  |_\___/_.__/\___/\__|
+	                          
+
 ### An intelligent robot for IRC.
 
 By [Mocha](http://wearemocha.com/).
@@ -46,7 +52,6 @@ Making a script is extremely simple. Make a file with the same name as the comma
 
 In this example my file will be named `mood.rb`.
 
-<code>
 
 	module BrobotScript
 		class Mood
@@ -57,7 +62,6 @@ In this example my file will be named `mood.rb`.
 		end
 	end
 
-</code>
 
 **Tip**: Nobody likes to see the same message over and over again. Instead make an array of hashes and use the sample method to randomly pick one of the messages.
 
@@ -82,7 +86,6 @@ Plugins have 5 main hooks that they can respond to.
 
 #### Example
 
-<code>
 	
 	module BrobotPlugin
 		class SimpleLogger
@@ -112,4 +115,3 @@ Plugins have 5 main hooks that they can respond to.
 		end		
 	end
 
-</code>
