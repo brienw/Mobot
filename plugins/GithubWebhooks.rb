@@ -36,7 +36,7 @@ module BrobotPlugin
 
           string = url_unescape(string)
 
-          data = JSON.parse @http_post_content[:payload]
+          data = JSON.parse string
 
           for commit in data[:commits]
 
