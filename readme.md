@@ -66,13 +66,17 @@ In this example my file will be named `mood.rb`.
 
 Plugins are scripts that modify the core functionality of Brobot. Plugins must be a submodule or class of the BrobotPlugin module.
 
-Plugins have 3 main hooks that they can respond to.
+Plugins have 5 main hooks that they can respond to.
 
 #### Hooks
 
 *initialize* – This is for classes only. This is called right before Brobot calls the other two hooks.
 
 *emRun* – When EventMachine first starts up this will run. Useful for running numerous async scripts.
+
+*userJoin(user)* - Sent when a user joins the room.
+
+*userLeft(user)* - Sent when a user leaves the room.
 
 *sendingMessage(message)* – Sent right before we send the message to the user. You must return the message you want to send to the user.
 
@@ -90,7 +94,15 @@ Plugins have 3 main hooks that they can respond to.
 			def emRun
 				puts "EventMachine has started"
 			end
+
+			def userJoin user
+				puts "Looks like we have a new user named #{user[:nick]}"
+			end
 			
+			def userLeft user
+				puts "bye!"
+			end
+
 			def sendingMessage message
 				puts "About to send message: #{message}"
 				
