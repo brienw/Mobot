@@ -9,7 +9,7 @@ module BrobotScript
 
 			paramWords = params.split(" ")
 
-			placeWords = %w(Chicago, England, Spain)
+			placeWords = %w("Chicago", "England", "Spain")
 
 			paramWords.each do |word|
 				unless placeWords.include? word
