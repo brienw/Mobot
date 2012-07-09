@@ -8,16 +8,18 @@ module BrobotScript
 		require 'uri'
 		def command(params, nick)
 			
-			connectingWords = %w(repo for is repository)
+			connectingWords = %w(repo for is repository page of)
 
 			connectingWords.each do |word|
 				params.delete word
 			end
 
+			starters = ["Sure, it's ", "Here it is - ", "Found it, it's ", "#{nick} it's " ,""]
+
 			if params.length == 1
-				"https://github.com/#{params.join("")}"
+				"#{starters.sample}https://github.com/#{params.join("")}"
 			else
-				["https://github.com/#{params.join("/")}", "git@github.com:#{params[0].capitalize}/#{params[1].capitalize}.git"]
+				["#{starters.sample}https://github.com/#{params.join("/")}", "git@github.com:#{params[0].capitalize}/#{params[1].capitalize}.git"]
 			end	
 		end
 	end

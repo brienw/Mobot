@@ -8,7 +8,7 @@ module BrobotScript
 
 		def command(params, nick)
 			
-			message = "My commands..."
+			message = "My commands... "
 
 			BrobotScript.submodules.each do |script|
 				if BrobotScript.submodules.last == script
