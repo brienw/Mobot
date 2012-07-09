@@ -23,6 +23,7 @@ module BrobotPlugin
 
         #	if @http_query_string == ""
         unless @http_post_content == nil
+          puts @http_post_content
           data = JSON.parse @http_post_content[:payload]
 
           for commit in data[:commits]
