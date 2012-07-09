@@ -1,0 +1,14 @@
+Brobot: process with pid 53701 started.
+/Users/Hunter/.rvm/rubies/ruby-1.9.3-p194/lib/ruby/1.9.1/psych.rb:297:in `initialize': No such file or directory - config.yml (Errno::ENOENT)
+	from /Users/Hunter/.rvm/rubies/ruby-1.9.3-p194/lib/ruby/1.9.1/psych.rb:297:in `open'
+	from /Users/Hunter/.rvm/rubies/ruby-1.9.3-p194/lib/ruby/1.9.1/psych.rb:297:in `load_file'
+	from /Users/Hunter/Workspace/Brobot/brobot.rb:75:in `block in bot'
+	from /Users/Hunter/.rvm/gems/ruby-1.9.3-p194/gems/ponder-0.2.0/lib/ponder/thaum.rb:36:in `call'
+	from /Users/Hunter/.rvm/gems/ruby-1.9.3-p194/gems/ponder-0.2.0/lib/ponder/thaum.rb:36:in `initialize'
+	from /Users/Hunter/Workspace/Brobot/brobot.rb:71:in `new'
+	from /Users/Hunter/Workspace/Brobot/brobot.rb:71:in `bot'
+	from /Users/Hunter/Workspace/Brobot/brobot.rb:216:in `block in <main>'
+	from /Users/Hunter/.rvm/gems/ruby-1.9.3-p194/gems/eventmachine-1.0.0.rc.4/lib/eventmachine.rb:187:in `call'
+	from /Users/Hunter/.rvm/gems/ruby-1.9.3-p194/gems/eventmachine-1.0.0.rc.4/lib/eventmachine.rb:187:in `run_machine'
+	from /Users/Hunter/.rvm/gems/ruby-1.9.3-p194/gems/eventmachine-1.0.0.rc.4/lib/eventmachine.rb:187:in `run'
+	from /Users/Hunter/Workspace/Brobot/brobot.rb:214:in `<main>'

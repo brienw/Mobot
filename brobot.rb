@@ -72,7 +72,7 @@ class Brobot
 
       Thread.current[:bot] = self
 
-      config = YAML.load_file("config.yml")
+      config = YAML.load_file("#{File.dirname(__FILE__)}/config.yml")
 
       thaum.username = thaum.real_name = thaum.nick = config['nickname']
       thaum.verbose = false
