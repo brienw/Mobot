@@ -42,11 +42,11 @@ module BrobotPlugin
 
           puts data
 
-          for commit in data["commits"]
+          data["commits"].each do |commit|
 
             Thread.current["channels"].each do |channel|
 
-              Thread.current["bot"].msg channel, "#{commit["author"]["name"]} just made a new commit on #{data["respository"]["url"]} with the message: #{commit[:message]}"
+              Thread.current["bot"].msg channel, "#{commit["author"]["name"]} just made a new commit on #{data["respository"]["url"]} with the message: #{commit["message"]}"
 
             end
 
