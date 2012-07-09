@@ -80,6 +80,7 @@ class Brobot
       thaum.server = config['server']
       thaum.port = config['port']
       Thread.current[:channels] = @channels = config['channels']
+      Thread.current[:delay] = config["delay"] ? config["delay"] : 0
     end
 
     @bot.on :connect do
@@ -143,6 +144,8 @@ class Brobot
 
         class_response = resp.new.command scriptMatch, event_data[:nick]
 
+        sleep Thread.current[:delay] * 1000
+
         if class_response.kind_of?(Array)
           class_response.each { |element|
 
@@ -194,11 +197,6 @@ class Brobot
           @bot.message event_data[:channel], class_response
 
         end
-
-      else
-        notFound = ["I don't know that command.", "lolwhat?", "Chu crazy..."]
-        notFound = notFound.sample
-        @bot.message event_data[:channel], notFound
       end
     end
 
