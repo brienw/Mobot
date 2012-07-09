@@ -5,6 +5,7 @@
 
 
 require 'evma_httpserver'
+require "CGI"
 
 module BrobotPlugin
 
