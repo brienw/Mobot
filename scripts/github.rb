@@ -1,5 +1,5 @@
 #
-#	Makes Github repo interactin quick
+#	Makes Github repo interaction quick
 #	Example: brobot github studio182 or brobot github studio182 brobot
 #
 
