@@ -169,6 +169,10 @@ class Brobot
 
         scriptConst = BrobotScript.const_get script
 
+        if scriptConst.respond_to(:new)
+          scriptConst = scriptConst.new
+        end
+
         if scriptConst.respond_to?(:customMatch)
           unless match = scriptConst.customMatch lowerResponseArray == false
             index = lowerResponseArray.index match.downcase
@@ -176,7 +180,7 @@ class Brobot
         else
           index = lowerResponseArray.index script.downcase
         end
-        
+
         unless index == nil
           matches = true
           scriptMatch = responseArray[index..responseArray.length - 1]
