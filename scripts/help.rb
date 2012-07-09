@@ -7,14 +7,16 @@ module BrobotScript
 	class Help
 
 		def command(params, nick)
-			files = Dir.glob("scripts/*.rb")
-			final_files = Array.new
-			files.each { |f|
-				f = f.gsub("scripts/", "").gsub(".rb", "")
-				final_files.push(f)
-			}	
-			final_files.join(", ")
+			
+			message = "I know how to do "
 
+			BrobotScript.submodules.each do |script|
+				if BrobotScript.submodules.last == script
+					message = script
+				else
+					message = "#{script}, "
+				end
+			end
 		end
 	end
 end
