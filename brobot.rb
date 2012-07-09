@@ -208,7 +208,7 @@ class Brobot
 
             end
 
-            @bot.message event_data[:channel], element
+            @bot.message (event_data[:channel] || event_data[:nick]), element
           }
 
         elsif valid_json?(class_response)
@@ -240,7 +240,7 @@ class Brobot
 
           end
 
-          @bot.message event_data[:channel], class_response
+          @bot.message (event_data[:channel] || event_data[:nick]), class_response
 
         end
       end
