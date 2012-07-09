@@ -1,5 +1,6 @@
 .DS_Store
-Brobot.pid
+*.pid
 Gemfile.lock
 config.yml
-Brobot.output
+*.output
+*.log

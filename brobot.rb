@@ -38,7 +38,7 @@ module BrobotPlugin; end
 File.tap do |f|
   Dir[f.expand_path(f.join(f.dirname(__FILE__),'scripts', '*.rb'))].each do |file|
 
-    BrobotScript.autoload File.basename(file, '.rb').capitalize, file
+    load file
 
   end
 end
@@ -47,7 +47,7 @@ end
 File.tap do |f|
   Dir[f.expand_path(f.join(f.dirname(__FILE__),'plugins', '*.rb'))].each do |file|
 
-    BrobotPlugin.autoload File.basename(file, '.rb').capitalize, file
+    load file
 
   end
 end
@@ -173,7 +173,12 @@ class Brobot
         elsif valid_json?(class_response)
           resp = JSON.parse(class_response)
           if resp['update']
-            @bot.message event_data[:channel], "Update is not implemented yet"
+            dir = File.expand_path(File.dirname(__FILE__))
+ 
+            puts `cd #{dir} && git pull origin master`
+
+            EM.stop_event_loop
+
           end
         else
           BrobotPlugin.submodules.each do |pluginClass|
@@ -208,25 +213,28 @@ end
 # This tiny bit of code catches Ctrl+C and prints out a message instead of an ugly exception
 trap("INT") { puts "[Brobot] Bye!"; exit }
 
+class Runner
 
-EM.run do
+  def initialize
+    EM.run do
+      Thread.current[:bot] = Brobot.new.bot
+      Thread.current[:bot].connect
 
-  Thread.current[:bot] = Brobot.new.bot
-  Thread.current[:bot].connect
+      BrobotPlugin.submodules.each do |pluginClass|
 
-  BrobotPlugin.submodules.each do |pluginClass|
+        pluginClass = BrobotPlugin.const_get pluginClass
 
-    pluginClass = BrobotPlugin.const_get pluginClass
+        if pluginClass.respond_to?(:new)
 
-    if pluginClass.respond_to?(:new)
+          pluginClass = pluginClass.new
 
-      pluginClass = pluginClass.new
+        end
 
+        if pluginClass.respond_to?(:emRun)
+          pluginClass.emRun
+        end
+
+      end
     end
-
-    if pluginClass.respond_to?(:emRun)
-      pluginClass.emRun
-    end
-
   end
 end
