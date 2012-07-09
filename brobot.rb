@@ -149,6 +149,7 @@ class Brobot
 
 
     @bot.on [:channel, :query], /^(.*)(?i)#{@nick}(.*)/ do |event_data|
+      
       scriptMatch = event_data[:message]
 
       scriptMatch.gsub!(/(\!|\?|\.|\,)/, "")
@@ -167,16 +168,31 @@ class Brobot
 
       BrobotScript.submodules.each do |script|
 
+        puts script
+
         scriptConst = BrobotScript.const_get script
 
-        if scriptConst.respond_to(:new)
+        if scriptConst.respond_to?(:new)
           scriptConst = scriptConst.new
         end
 
         if scriptConst.respond_to?(:customMatch)
-          unless match = scriptConst.customMatch lowerResponseArray == false
+          match = scriptConst.customMatch
+          
+          string = lowerResponseArray.join(" ")
+
+          match = match.match(string)[0]
+
+          if match == ""
+            index = nil
+          else
+
+            match = match.split(" ").last
+
             index = lowerResponseArray.index match.downcase
+            responseArray[index] = script
           end
+
         else
           index = lowerResponseArray.index script.downcase
         end

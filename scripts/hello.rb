@@ -6,14 +6,12 @@
 module BrobotScript
 	class Hello
 
-		def customMatch(string)
-			string = string.join(" ")
-			matches = string.scan(/(?i)(hey|hi|howdy|yo)/)
-			if matches.first == nil
-				false
-			else
-				matches.first
-			end
+		def customMatch
+
+			prefixes = "(morning|afternoon|evening|night)"
+			regex = "(?i)(hey|hi|howdy|yo|hello|G'#{prefixes}|good #{prefixes}|)"
+
+			/#{regex}/
 		end
 
 		def command(params, nick)
