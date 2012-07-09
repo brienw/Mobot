@@ -7,7 +7,8 @@ module BrobotScript
 	class Hello
 
 		def command(params, nick)
-			"Hello #{nick}! \u{1f60a}"
+			messages = ["Hello #{nick}! \u{1f60a}", "Howdy!", "Yo!", ["#{nick}!", "Hey! How are you?"]]
+			messages.sample
 		end
 	end
 end

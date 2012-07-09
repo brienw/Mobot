@@ -27,7 +27,7 @@ module BrobotPlugin
 
           for commit in data[:commits]
 
-          	Thread.current[:channels].each do |channel|
+          	Thread.current[:chamnnels].each do |channel|
 
             	Thread.current[:bot].msg channel, "#{commit[:author][:name]} just made a new commit on #{data[:respository][:url]} with the message: #{commit[:message]}"
 
