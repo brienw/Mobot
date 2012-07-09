@@ -12,11 +12,14 @@ module BrobotScript
 
 			BrobotScript.submodules.each do |script|
 				if BrobotScript.submodules.last == script
-					message = script
+					message += script
 				else
-					message = "#{script}, "
+					message += "#{script}, "
 				end
 			end
+
+			message
+
 		end
 	end
 end
