@@ -53,7 +53,6 @@ File.tap do |f|
 end
 
 
-
 # Brobot's class!
 class Brobot
 
@@ -107,7 +106,49 @@ class Brobot
       end
 
     end
-    @bot.on :channel, /^(.*)(?i)#{@nick}(.*)/ do |event_data|
+
+    @bot.on :join do |event_data|
+      BrobotPlugin.submodules.each do |pluginClass|
+
+            pluginClass = BrobotPlugin.const_get pluginClass
+
+            if pluginClass.respond_to?(:new)
+
+              pluginClass = pluginClass.new
+
+            end
+
+            if pluginClass.respond_to?(:userJoined)
+
+              pluginClass.userJoined event_data
+
+            end
+
+          end
+    end
+
+    @bot.on [:part, :quit] do |event_data|
+      BrobotPlugin.submodules.each do |pluginClass|
+
+            pluginClass = BrobotPlugin.const_get pluginClass
+
+            if pluginClass.respond_to?(:new)
+
+              pluginClass = pluginClass.new
+
+            end
+
+            if pluginClass.respond_to?(:userLeft)
+
+              pluginClass.userLeft event_data
+
+            end
+
+          end
+    end
+
+
+    @bot.on [:channel, :query], /^(.*)(?i)#{@nick}(.*)/ do |event_data|
       scriptMatch = event_data[:message]
 
       scriptMatch.gsub!(/(\!|\?|\.|\,)/, "")
