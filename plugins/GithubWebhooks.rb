@@ -23,7 +23,13 @@ module BrobotPlugin
 
         #	if @http_query_string == ""
         unless @http_post_content == nil
-          puts @http_post_content
+          
+          string = @http_post_content
+          
+          string = string[8..string.length]
+
+          string = CGI::unescape(string)
+
           data = JSON.parse @http_post_content[:payload]
 
           for commit in data[:commits]
