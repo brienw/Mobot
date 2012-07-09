@@ -51,7 +51,7 @@ module BrobotPlugin
               url = data["repository"]["url"]
               message = commit["mesage"]
 
-              Thread.current["bot"].msg channel, "#{name} just made a new commit on #{url} with the message: #{message}"
+              Thread.current["bot"].message channel, "#{name} just made a new commit on #{url} with the message: #{message}"
 
             end
 
