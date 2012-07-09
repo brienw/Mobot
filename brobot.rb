@@ -144,7 +144,7 @@ class Brobot
 
         class_response = resp.new.command scriptMatch, event_data[:nick]
 
-        sleep Thread.current[:delay] * 1000
+        sleep Thread.current[:delay]
 
         if class_response.kind_of?(Array)
           class_response.each { |element|
