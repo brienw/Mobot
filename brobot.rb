@@ -1,16 +1,16 @@
 #
-#  ######
-#  #     # #####   ####  #####   ####  #####
-#  #     # #    # #    # #    # #    #   #
-#  ######  #    # #    # #####  #    #   #
-#  #     # #####  #    # #    # #    #   #
-#  #     # #   #  #    # #    # #    #   #
-#  ######  #    #  ####  #####   ####    #
+# ##     ##  #######  ########   #######  ######## 
+# ###   ### ##     ## ##     ## ##     ##    ##    
+# #### #### ##     ## ##     ## ##     ##    ##    
+# ## ### ## ##     ## ########  ##     ##    ##    
+# ##     ## ##     ## ##     ## ##     ##    ##    
+# ##     ## ##     ## ##     ## ##     ##    ##    
+# ##     ##  #######  ########   #######     ## 
 #
 #  By Mocha (http://wearemocha.com/)
 #
 
-# This is Brobot's Main Bot File
+# This is Mobot's Main Bot File
 
 # Setting up dependencies...
 require 'ponder'
@@ -31,9 +31,9 @@ class Module
   end
 end
 
-module BrobotScript; end
+module MobotScript; end
 
-module BrobotPlugin; end
+module MobotPlugin; end
 
 File.tap do |f|
   Dir[f.expand_path(f.join(f.dirname(__FILE__),'scripts', '*.rb'))].each do |file|
@@ -53,8 +53,8 @@ File.tap do |f|
 end
 
 
-# Brobot's class!
-class Brobot
+# Mobot's class!
+class Mobot
 
   def valid_json?(json_)
     begin
@@ -166,11 +166,11 @@ class Brobot
       scriptMatch = responseArray
       matches = false
 
-      BrobotScript.submodules.each do |script|
+      MobotScript.submodules.each do |script|
 
         puts script
 
-        scriptConst = BrobotScript.const_get script
+        scriptConst = MobotScript.const_get script
 
         if scriptConst.respond_to?(:new)
           scriptConst = scriptConst.new
@@ -205,9 +205,9 @@ class Brobot
 
       end
 
-      if BrobotScript.submodules.include? scriptMatch[0].capitalize
+      if MobotScript.submodules.include? scriptMatch[0].capitalize
 
-        resp = BrobotScript.const_get scriptMatch[0].capitalize
+        resp = MobotScript.const_get scriptMatch[0].capitalize
 
         scriptMatch.delete_at(0)
 
@@ -218,9 +218,9 @@ class Brobot
         if class_response.kind_of?(Array)
           class_response.each { |element|
 
-            BrobotPlugin.submodules.each do |pluginClass|
+            MobotPlugin.submodules.each do |pluginClass|
 
-              pluginClass = BrobotPlugin.const_get pluginClass
+              pluginClass = MobotPlugin.const_get pluginClass
 
               if pluginClass.respond_to?(:new)
 
@@ -250,9 +250,9 @@ class Brobot
 
           end
         else
-          BrobotPlugin.submodules.each do |pluginClass|
+          MobotPlugin.submodules.each do |pluginClass|
 
-            pluginClass = BrobotPlugin.const_get pluginClass
+            pluginClass = MobotPlugin.const_get pluginClass
 
             if pluginClass.respond_to?(:new)
 
@@ -280,18 +280,18 @@ class Brobot
 end
 
 # This tiny bit of code catches Ctrl+C and prints out a message instead of an ugly exception
-trap("INT") { puts "[Brobot] Bye!"; exit }
+trap("INT") { puts "[Mobot] Bye!"; exit }
 
 class Runner
 
   def initialize
     EM.run do
-      Thread.current[:bot] = Brobot.new.bot
+      Thread.current[:bot] = Mobot.new.bot
       Thread.current[:bot].connect
 
-      BrobotPlugin.submodules.each do |pluginClass|
+      MobotPlugin.submodules.each do |pluginClass|
 
-        pluginClass = BrobotPlugin.const_get pluginClass
+        pluginClass = MobotPlugin.const_get pluginClass
 
         if pluginClass.respond_to?(:new)
 

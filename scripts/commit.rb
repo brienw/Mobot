@@ -3,7 +3,7 @@
 #	Example: What do you think my commit message should be brobot?
 #
 
-module BrobotScript
+module MobotScript
 	class Commit
 
 		require 'net/http'

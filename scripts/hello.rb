@@ -3,7 +3,7 @@
 #	Example: brobot hello
 #
 
-module BrobotScript
+module MobotScript
 	class Hello
 
 		def customMatch

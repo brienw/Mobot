@@ -3,7 +3,7 @@
 #	Example: brobot help
 #
 
-module BrobotScript
+module MobotScript
 	class Help
 
 		def command(params, nick)

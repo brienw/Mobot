@@ -3,7 +3,7 @@
 #	Example: brobot ping
 #
 
-module BrobotScript
+module MobotScript
 	class Ping
 
 		def command(params, nick)

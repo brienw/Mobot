@@ -1,5 +1,5 @@
-nickname: "Mobot"
+nickname: "Mobot1"
 server: "172.16.0.1"
 port: 6667
 delay: 0.2 # On fast servers brobot can repsond extremely fast. 
-channels: ['#Team', '#brobot_dev']
+channels: ['#Team', '#pablo_brobot_dev']

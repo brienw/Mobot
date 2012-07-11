@@ -3,7 +3,7 @@
 #	Example: brobot mood
 #
 
-module BrobotScript
+module MobotScript
 	class Mood
 
 		def customMatch

@@ -3,7 +3,7 @@
 #	Example: brobot update
 #
 
-module BrobotScript
+module MobotScript
 	class Update
 
 		def command(params, nick)
