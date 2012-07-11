@@ -9,7 +9,7 @@ module MobotScript
 		def customMatch
 
 			prefixes = "(morning|afternoon|evening|night)"
-			regex = "(?i)(hey|hi|howdy|yo|hello|G'#{prefixes}|good #{prefixes}|)"
+			regex = "(?i)(yay|hey|hi|howdy|yo|hello|G'#{prefixes}|good #{prefixes}|)"
 
 			/#{regex}/
 		end
