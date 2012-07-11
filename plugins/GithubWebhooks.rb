@@ -6,7 +6,7 @@
 
 require 'evma_httpserver'
 
-module BrobotPlugin
+module MobotPlugin
 
   module Githubwebhooks
 
