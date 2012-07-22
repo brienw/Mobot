@@ -3,7 +3,7 @@
 #	Example: brobot github studio182 or brobot github studio182 brobot
 #
 
-module BrobotScript
+module MobotScript
 	class Github
 		require 'uri'
 		def command(params, nick)

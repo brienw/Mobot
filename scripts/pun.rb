@@ -6,7 +6,7 @@
 require 'simple-rss'
 require "open-uri"
 
-module BrobotScript
+module MobotScript
 	class Pun
 
 		def command(params, nick)

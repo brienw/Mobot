@@ -3,7 +3,7 @@
 #	Example: brobot google Apple
 #
 
-module BrobotScript
+module MobotScript
 	class Google
 		require 'uri'
 		def command(params, nick)
