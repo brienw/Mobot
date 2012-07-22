@@ -43,10 +43,15 @@ module BrobotPlugin
             Thread.current["channels"].each do |channel|
 
               name = commit["author"]["name"]
-              url = data["repository"]["url"]
+              #url = data["repository"]["url"]
               message = commit["message"]
 
-              Thread.current["bot"].message channel, "#{name} just made a new commit on #{url} with the message: #{message}"
+              urlBefore = data["repository"]["url"]
+              urlAfter = urlBefore.split('/')[-1]
+
+              inbetweeners = ["just made a new commit on", "just committed to", "committed to"]
+
+              Thread.current["bot"].message channel, "#{name} #{inbetweeners.sample} #{urlAfter} with the message: #{message}"
 
             end
 
